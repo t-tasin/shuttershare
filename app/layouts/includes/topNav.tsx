@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FiSearch } from "react-icons/fi";
+import { FiLogOut, FiSearch } from "react-icons/fi";
 import { MdFileUpload } from "react-icons/md";
 import { CgMenuGridO } from "react-icons/cg";
 import { BiUser } from "react-icons/bi";
@@ -70,7 +70,7 @@ export default function TopNav() {
               <span className="px-2 font-medium text-[15px]">Upload</span>
             </button>
 
-            {!true ? (
+            {true ? (
               <div className="flex items-center">
                 <button className="flex items-center bg-[#304674] text-white border rounded-md px-3 py-[6px] mx-3">
                   <span className="whitespace-nowrap mx-4 font-medium text-[15px]">
@@ -93,6 +93,12 @@ export default function TopNav() {
                       <BiUser size="20" />
                       <span className="pl-2 font-semibold text-sm">
                         Profile
+                      </span>
+                    </button>
+                    <button className="flex items-center w-full justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer">
+                      <FiLogOut size="20" />
+                      <span className="pl-2 font-semibold text-sm">
+                        Log out
                       </span>
                     </button>
                   </div>
