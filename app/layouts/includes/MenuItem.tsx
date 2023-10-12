@@ -1,8 +1,8 @@
 "use client";
 
-import { AiFillHome } from "react-icons/ai";
-import { FaUserGroup } from "react-icons/fa6";
-import { FaVideo } from "react-icons/fa";
+import { BiHomeAlt } from "react-icons/bi";
+import { HiOutlineUserGroup } from "react-icons/hi";
+import { RiLiveLine } from "react-icons/ri";
 
 import { MenuItemsTypes } from "@/app/types";
 
@@ -13,11 +13,11 @@ export default function MenuItem({
 }: MenuItemsTypes) {
   const icons = () => {
     if (iconString == "For You")
-      return <AiFillHome size={sizeString} color={colorString} />;
+      return <BiHomeAlt size={sizeString} color={colorString} />;
     if (iconString == "Following")
-      return <FaUserGroup size={sizeString} color={colorString} />;
+      return <HiOutlineUserGroup size={sizeString} color={colorString} />;
     if (iconString == "LIVE")
-      return <FaVideo size={sizeString} color={colorString} />;
+      return <RiLiveLine size={sizeString} color={colorString} />;
   };
   return (
     <>

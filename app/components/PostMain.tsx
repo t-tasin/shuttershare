@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { PostMainCompTypes } from "../types";
 import Link from "next/link";
 import { ImMusic } from "react-icons/im";
+import PostMainLikes from "./PostMainLike";
 
 export default function PostMain({ post }: PostMainCompTypes) {
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function PostMain({ post }: PostMainCompTypes) {
                 {post.profile.name}
               </span>
             </Link>
-            <button className="border text-[15px] px-[21px] py-0.5 border-[#ee6c4d] text-[#ee6c4d] hover:bg-[#ffeef2] font-semibold rounded-md">
+            <button className="border text-[15px] px-[21px] py-0.5 border-[#98c1d9] text-[#98c1d9] hover:bg-[#ffeef2] font-semibold rounded-md">
               Follow
             </button>
           </div>
@@ -70,6 +71,7 @@ export default function PostMain({ post }: PostMainCompTypes) {
                 src="/image/ShutterShare_white.png"
               />
             </div>
+            <PostMainLikes post={post} />
           </div>
         </div>
       </div>
