@@ -3,6 +3,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { FiSearch } from "react-icons/fi";
 import { MdFileUpload } from "react-icons/md";
 import { CgMenuGridO } from "react-icons/cg";
+import { BiUser } from "react-icons/bi";
 export default function TopNav() {
   const router = useRouter();
   const pathname = usePathname();
@@ -68,14 +69,36 @@ export default function TopNav() {
               <MdFileUpload color="#000000" size="22" />
               <span className="px-2 font-medium text-[15px]">Upload</span>
             </button>
-            <div className="flex items-center">
-              <button className="flex items-center bg-[#304674] text-white border rounded-md px-3 py-[6px] mx-3">
-                <span className="whitespace-nowrap mx-4 font-medium text-[15px]">
-                  Log in
-                </span>
-              </button>
-              <CgMenuGridO color="#161724" size="24" />
-            </div>
+
+            {!true ? (
+              <div className="flex items-center">
+                <button className="flex items-center bg-[#304674] text-white border rounded-md px-3 py-[6px] mx-3">
+                  <span className="whitespace-nowrap mx-4 font-medium text-[15px]">
+                    Log in
+                  </span>
+                </button>
+                <CgMenuGridO color="#161724" size="24" />
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <div className="relative">
+                  <button className="mt-1 border border-grey-200 rounded-full">
+                    <img
+                      className="rounded-full w-[35px] h-[35px]"
+                      src="https://placehold.co/35"
+                    />
+                  </button>
+                  <div className="absolute bg-white rounded-lg py-1.5 w-[200px] shadow-xl border top-[40px] right-0">
+                    <button className="flex items-center w-full justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer">
+                      <BiUser size="20" />
+                      <span className="pl-2 font-semibold text-sm">
+                        Profile
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
