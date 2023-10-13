@@ -10,6 +10,19 @@ import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 export default function Post({ params }: PostPageTypes) {
   const router = useRouter();
 
+  const postById = {
+    id: "123",
+    user_id: "456",
+    media: "/test.mp4",
+    text: "this is some text",
+    created_at: "date here",
+    profile: {
+      user_id: "456",
+      name: "user 1",
+      image: "https://placehold.co/100",
+    },
+  };
+
   const loopThroughPostsUp = () => {
     console.log("loopThroughPostsUp");
   };
@@ -54,14 +67,38 @@ export default function Post({ params }: PostPageTypes) {
           />
 
           <ClientOnly>
-            {true ? (
+            {postById?.media ? (
               <video
                 className="fixed object-cover w-full my-auto z-[0] h-screen"
                 src="/test.mp4"
               />
             ) : null}
-            <div className="bg-black bg-opacity-70 lg:min-w-[480px] z-10 relative"></div>
+            <div className="bg-black bg-opacity-70 lg:min-w-[480px] z-10 relative">
+              {postById?.media ? (
+                <video
+                  autoPlay
+                  controls
+                  loop
+                  muted
+                  className="h-screen mx-auto"
+                  src="/test.mp4"
+                />
+              ) : null}
+            </div>
           </ClientOnly>
+        </div>
+        <div
+          id="InfoSection"
+          className="lg:max-w-[550px] relative w-full h-full bg-white"
+        >
+          <div className="py-7" />
+
+          <ClientOnly>
+            {postById?.media ? (
+              <CommentsHeader post={postById} params={params} />
+            ) : null}
+          </ClientOnly>
+          <Comments params={params} />
         </div>
       </div>
     </>
