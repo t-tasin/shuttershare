@@ -4,10 +4,30 @@ export interface RandomUsers {
   image: string;
 }
 
+export interface CropperDimensions {
+  height?: number | null;
+  width?: number | null;
+  left?: number | null;
+  top?: number | null;
+}
+
+export interface ShowErrorObject {
+  type: string;
+  message: string;
+}
+
 export interface Like {
   id: string;
   user_id: string;
   post_id: string;
+}
+
+export interface Post {
+  id: string;
+  user_id: string;
+  video_url: string;
+  text: string;
+  created_at: string;
 }
 
 export interface Comments {
@@ -47,6 +67,26 @@ export interface PostMainCompTypes {
 
 export interface PostMainLikesCompTypes {
   post: PostWithProfile;
+}
+
+export interface PostPageTypes {
+  params: { userId: string; postId: string };
+}
+
+export interface ProfilePageTypes {
+  params: { id: string };
+}
+
+export interface PostUserCompTypes {
+  post: Post;
+}
+
+export interface TextInputCompTypes {
+  string: string;
+  inputType: string;
+  placeholder: string;
+  onUpdate: (newValue: string) => void;
+  error: string;
 }
 
 //LAYOUT INCLUDE TYPES
