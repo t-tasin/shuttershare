@@ -113,7 +113,9 @@ export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
             </span>
           </div>
           <button
-            onClick={() => router.push(`/post/${post?.profile?.user_id}`)}
+            onClick={() =>
+              router.push(`/post/${post?.id}/${post?.profile?.user_id}`)
+            }
             className="pb-4 text-center"
           >
             <div className="rounded-full p-2 cursor-pointer">

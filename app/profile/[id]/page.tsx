@@ -4,6 +4,7 @@ import ClientOnly from "@/app/components/ClientOnly";
 import EditProfileOverlay from "@/app/components/profile/EditProfileOverlay";
 import PostUser from "@/app/components/profile/PostUser";
 import { useUser } from "@/app/context/user";
+import useCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 import MainLayout from "@/app/layouts/MainLayout";
 import { useGeneralStore } from "@/app/stores/general";
 import { usePostStore } from "@/app/stores/post";
@@ -32,7 +33,7 @@ export default function Profile({ params }: ProfilePageTypes) {
               {currentProfile ? (
                 <img
                   className="2-[120px] min-w-[120px] rounded-full"
-                  src={currentProfile?.image}
+                  src={useCreateBucketUrl(currentProfile?.image)}
                 />
               ) : (
                 <div className="min-w-[150px] h-[120px] bg-gray-200 rounded-full" />
@@ -56,7 +57,14 @@ export default function Profile({ params }: ProfilePageTypes) {
               </ClientOnly>
 
               {contextUser?.user?.id == params?.id ? (
-                <button className="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100">
+                <button
+                  onClick={() =>
+                    setIsEditProfileOpen(
+                      (isEditProfileOpen = !isEditProfileOpen)
+                    )
+                  }
+                  className="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100"
+                >
                   <FaEdit className="mt-0.5 mr-1" size="18" />
                   <span>Edit Profile</span>
                 </button>
@@ -97,15 +105,9 @@ export default function Profile({ params }: ProfilePageTypes) {
           </ul>
           <ClientOnly>
             <div className="mt-4 grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
-              <PostUser
-                post={{
-                  id: "123",
-                  user_id: "123",
-                  media: "/test.mp4",
-                  text: "this is a dummy post",
-                  created_at: "dummy date",
-                }}
-              />
+              {postsByUser?.map((post, index) => (
+                <PostUser key={index} post={post} />
+              ))}
             </div>
           </ClientOnly>
 
