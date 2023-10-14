@@ -4,8 +4,10 @@ import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Register from "@/app/components/auth/Register";
 import Login from "./auth/Login";
+import { useGeneralStore } from "../stores/general";
 
 export default function AuthOverlay() {
+  let { setIsLoginOpen } = useGeneralStore();
   let [isRegister, setIsRegister] = useState<boolean>(false);
 
   return (
@@ -16,12 +18,28 @@ export default function AuthOverlay() {
       >
         <div className="relative bg-white w-full max-w-[470px] h-[70%] p-4 rounded-lg">
           <div className="w-full flex justify-end">
-            <button className="p-1.5 rounded-full bg-gray-100">
+            <button
+              onClick={() => setIsLoginOpen(false)}
+              className="p-1.5 rounded-full bg-gray-100"
+            >
               <AiOutlineClose size="26" />
             </button>
           </div>
 
           {isRegister ? <Register /> : <Login />}
+
+          <div className="absolute flex items-center justify-center py-5 left-0 bottom-0 border-t w-full">
+            <span className="text-[14px] text-gray-600">
+              Don’t have an account?
+            </span>
+
+            <button
+              onClick={() => setIsRegister((isRegister = !isRegister))}
+              className="text-[14px] text-[#3D5A80] font-semibold pl-1"
+            >
+              <span>{!isRegister ? "Register" : "log in"}</span>
+            </button>
+          </div>
         </div>
       </div>
     </>
