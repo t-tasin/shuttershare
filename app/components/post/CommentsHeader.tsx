@@ -17,6 +17,7 @@ import useIsLiked from "@/app/hooks/useIsLiked";
 import useCreateLike from "@/app/hooks/useCreateLike";
 import useDeleteLike from "@/app/hooks/useDeleteLike";
 import useDeletePostById from "@/app/hooks/useDeletePostById";
+import useCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 export default function CommentsHeader({
   post,
@@ -121,7 +122,7 @@ export default function CommentsHeader({
               <img
                 className="rounded-full lg:mx-0 mx-auto"
                 width="40"
-                src={post?.profile.image}
+                src={useCreateBucketUrl(post?.profile.image)}
               />
             ) : (
               <div className="w-[40px] h-[40px] bg-gray-200 rounded-full"></div>
@@ -145,7 +146,7 @@ export default function CommentsHeader({
           </div>
         </div>
 
-        {contextUser?.user?.id ? (
+        {contextUser?.user?.id == post?.user_id ? (
           <div>
             {isDeleteing ? (
               <BiLoaderCircle className="animate-spin" size="25" />
