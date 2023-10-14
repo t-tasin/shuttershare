@@ -3,31 +3,36 @@
 import ClientOnly from "@/app/components/ClientOnly";
 import EditProfileOverlay from "@/app/components/profile/EditProfileOverlay";
 import PostUser from "@/app/components/profile/PostUser";
+import { useUser } from "@/app/context/user";
 import MainLayout from "@/app/layouts/MainLayout";
+import { useGeneralStore } from "@/app/stores/general";
+import { usePostStore } from "@/app/stores/post";
+import { useProfileStore } from "@/app/stores/profile";
 import { ProfilePageTypes } from "@/app/types";
+import { useEffect } from "react";
 import { FaEdit } from "react-icons/fa";
 
 export default function Profile({ params }: ProfilePageTypes) {
-  const currentProfile = {
-    id: "123",
-    user_id: "123",
-    name: "KM Khalid Saifullah",
-    image: "https://placehold.co/200",
-    bio: "this is the bio section!!",
-  };
+  const contextUser = useUser();
+  let { postsByUser, setPostsByUser } = usePostStore();
+  let { setCurrentProfile, currentProfile } = useProfileStore();
+  let { isEditProfileOpen, setIsEditProfileOpen } = useGeneralStore();
+
+  useEffect(() => {
+    setCurrentProfile(params?.id);
+    setPostsByUser(params?.id);
+  }, []);
+
   return (
     <>
       <MainLayout>
-        <ClientOnly>
-          <EditProfileOverlay />
-        </ClientOnly>
         <div className="pt-[90px] ml-[90px] 2xl:pl-[185px] lg:pl-[160px] lg:pr-0 w-[calc(100%-90px)] pr-3 max-w-[1800px] 2xl:mx-auto">
           <div className="flex w-[cacl(100vw-230px)]">
             <ClientOnly>
-              {true ? (
+              {currentProfile ? (
                 <img
                   className="2-[120px] min-w-[120px] rounded-full"
-                  src={currentProfile.image}
+                  src={currentProfile?.image}
                 />
               ) : (
                 <div className="min-w-[150px] h-[120px] bg-gray-200 rounded-full" />
@@ -50,7 +55,7 @@ export default function Profile({ params }: ProfilePageTypes) {
                 )}
               </ClientOnly>
 
-              {true ? (
+              {contextUser?.user?.id == params?.id ? (
                 <button className="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100">
                   <FaEdit className="mt-0.5 mr-1" size="18" />
                   <span>Edit Profile</span>

@@ -4,6 +4,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from "next/link";
 import { BiErrorCircle } from "react-icons/bi";
 import { SiSoundcharts } from "react-icons/si";
+import useCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 export default function PostUser({ post }: PostUserCompTypes) {
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function PostUser({ post }: PostUserCompTypes) {
               muted
               loop
               className="aspect-[3/4] object-cover rounded-md"
-              src={post.media}
+              src={useCreateBucketUrl(post.media)}
             />
           </Link>
         )}
