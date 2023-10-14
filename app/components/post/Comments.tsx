@@ -1,8 +1,14 @@
 import { CommentsCompTypes } from "@/app/types";
 import ClientOnly from "../ClientOnly";
 import SingleComment from "./SingleComment";
+import { useState } from "react";
+import { BiLoaderCircle } from "react-icons/bi";
 
 export default function Comments({ params }: CommentsCompTypes) {
+  const [comment, setComment] = useState<string>("");
+  const [inputFocused, setInputFocused] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+
   const commentsByPost = [
     {
       id: "123",
@@ -18,6 +24,10 @@ export default function Comments({ params }: CommentsCompTypes) {
     },
   ];
 
+  const addComment = () => {
+    console.log("addComment");
+  };
+
   return (
     <>
       <div
@@ -26,7 +36,7 @@ export default function Comments({ params }: CommentsCompTypes) {
       >
         <div className="pt-2" />
         <ClientOnly>
-          {commentsByPost.length > 0 ? (
+          {commentsByPost.length < 1 ? (
             <div className="text-center mt-6 text-xl text-gray-500">
               No comments...
             </div>
@@ -38,6 +48,51 @@ export default function Comments({ params }: CommentsCompTypes) {
             </div>
           )}
         </ClientOnly>
+
+        <div className="mb-28" />
+      </div>
+      <div
+        id="CreateComment"
+        className="absolute flex items-center justify-between bottom-0 bg-white h-[85px] lg:max-w-[550px] w-full py-5 px-8 border-t-2"
+      >
+        <div
+          className={`
+                        bg-[#F1F1F2] flex items-center rounded-lg w-full lg:max-w-[420px]
+                        ${
+                          inputFocused
+                            ? "border-2 border-gray-400"
+                            : "border-2 border-[#F1F1F2]"
+                        }
+                    `}
+        >
+          <input
+            onFocus={() => setInputFocused(true)}
+            onBlur={() => setInputFocused(false)}
+            onChange={(e) => setComment(e.target.value)}
+            value={comment || ""}
+            className="bg-[#F1F1F2] text-[14px] focus:outline-none w-full lg:max-w-[420px] p-2 rounded-lg"
+            type="text"
+            placeholder="Add comment..."
+          />
+        </div>
+        {!isUploading ? (
+          <button
+            disabled={!comment}
+            onClick={() => addComment()}
+            className={`
+                            font-semibold text-sm ml-5 pr-1
+                            ${
+                              comment
+                                ? "text-[#e9f5f9] border rounded-lg p-2.5 bg-[#1e7898] pr-2.5 cursor-pointer"
+                                : "text-gray-400 border rounded-lg p-2.5 bg-gray-100 pr-2.5"
+                            }
+                        `}
+          >
+            Post
+          </button>
+        ) : (
+          <BiLoaderCircle className="animate-spin" color="#2187ab" size="20" />
+        )}
       </div>
     </>
   );
