@@ -145,7 +145,7 @@ export default function CommentsHeader({
           </div>
         </div>
 
-        {true ? (
+        {contextUser?.user?.id ? (
           <div>
             {isDeleteing ? (
               <BiLoaderCircle className="animate-spin" size="25" />
@@ -189,7 +189,9 @@ export default function CommentsHeader({
           <div className="rounded-full bg-gray-200 p-2 cursor-pointer">
             <AiOutlineComment size={25} />
           </div>
-          <span className="text-xs pl-2 text-gray-800 font-semibold">4</span>
+          <span className="text-xs pl-2 text-gray-800 font-semibold">
+            {commentsByPost?.length}
+          </span>
         </div>
       </div>
     </>
