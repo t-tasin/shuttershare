@@ -11,6 +11,7 @@ import { account, ID } from "@/libs/AppWriteClient";
 import { useRouter } from "next/navigation";
 import { User, UserContextTypes } from "../types";
 import useGetProfileByUserId from "../hooks/useGetProfileByUserId";
+import useCreateProfile from "../hooks/useCreateProfile";
 
 const UserContext = createContext<UserContextTypes | null>(null);
 
@@ -41,9 +42,47 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     checkUser();
   }, []);
 
+  const register = async (name: string, email: string, password: string) => {
+    try {
+      const promise = await account.create(ID.unique(), email, password, name);
+      await account.createEmailSession(email, password);
+
+      await useCreateProfile(
+        promise?.$id,
+        name,
+        String(process.env.NEXT_PUBLIC_PLACEHOLDER_DEAFULT_IMAGE_ID),
+        ""
+      );
+      await checkUser();
+    } catch (error) {}
+  };
+
+  const login = async (email: string, password: string) => {
+    try {
+      await account.createEmailSession(email, password);
+      checkUser();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await account.deleteSession("current");
+      setUser(null);
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <UserContext.Provider value={{ user, register, login, logout, checkUser }}>
       {children}
     </UserContext.Provider>
   );
 };
+
+export default UserProvider;
+
+export const useUser = () => useContext(UserContext);
