@@ -1,19 +1,93 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Comments, Like, PostMainLikesCompTypes } from "../types";
 import { BiSolidUpvote, BiUpvote, BiLoaderCircle } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import { AiOutlineComment } from "react-icons/ai";
 import { PiShareFatFill } from "react-icons/pi";
+import { useGeneralStore } from "../stores/general";
+import { useUser } from "../context/user";
+import useGetCommentsByPostId from "../hooks/useGetCommentsByPostId";
+import useGetLikesByPostId from "../hooks/useGetLikesByPostId";
+import useCreateLike from "../hooks/useCreateLike";
+import useDeleteLike from "../hooks/useDeleteLike";
+import useIsLiked from "../hooks/useIsLiked";
 
 export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
+  let { setIsLoginOpen } = useGeneralStore();
+
+  const contextUser = useUser();
   const router = useRouter();
   const [hasClickedLike, setHasClickedLike] = useState<boolean>(false);
-  const [userLiked, setuserLiked] = useState<boolean>(false);
+  const [userLiked, setUserLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<Comments[]>([]);
   const [likes, setLikes] = useState<Like[]>([]);
 
-  const likeOrUnLike = () => {
-    console.log("likeOrUnLike");
+  useEffect(() => {
+    getAllLikesByPost();
+    getAllCommentsByPost();
+  }, [post]);
+
+  useEffect(() => {
+    hasUserLikedPost();
+  }, [likes, contextUser]);
+
+  const getAllCommentsByPost = async () => {
+    let result = await useGetCommentsByPostId(post?.id);
+    setComments(result);
+  };
+
+  const getAllLikesByPost = async () => {
+    let result = await useGetLikesByPostId(post?.id);
+    setLikes(result);
+  };
+
+  const hasUserLikedPost = () => {
+    if (!contextUser) return;
+
+    if (likes?.length < 1 || !contextUser?.user?.id) {
+      setUserLiked(false);
+      return;
+    }
+    let res = useIsLiked(contextUser?.user?.id, post?.id, likes);
+    setUserLiked(res ? true : false);
+  };
+
+  const like = async () => {
+    setHasClickedLike(true);
+    await useCreateLike(contextUser?.user?.id || "", post?.id);
+    await getAllLikesByPost();
+    hasUserLikedPost();
+    setHasClickedLike(false);
+  };
+
+  const unlike = async (id: string) => {
+    setHasClickedLike(true);
+    await useDeleteLike(id);
+    await getAllLikesByPost();
+    hasUserLikedPost();
+    setHasClickedLike(false);
+  };
+
+  const likeOrUnlike = () => {
+    if (!contextUser?.user?.id) {
+      setIsLoginOpen(true);
+      return;
+    }
+
+    let res = useIsLiked(contextUser?.user?.id, post?.id, likes);
+
+    if (!res) {
+      like();
+    } else {
+      likes.forEach((like: Like) => {
+        if (
+          contextUser?.user?.id == like?.user_id &&
+          like?.post_id == post?.id
+        ) {
+          unlike(like?.id);
+        }
+      });
+    }
   };
   return (
     <>
@@ -22,7 +96,7 @@ export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
           <div className="pb-4 text-center">
             <button
               disabled={hasClickedLike}
-              onClick={() => likeOrUnLike()}
+              onClick={() => likeOrUnlike()}
               className="rounded-full p-2 cursor-pointer"
             >
               {!hasClickedLike ? (
@@ -39,7 +113,9 @@ export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
             </span>
           </div>
           <button
-            onClick={() => router.push(`/post/${post?.profile?.user_id}`)}
+            onClick={() =>
+              router.push(`/post/${post?.id}/${post?.profile?.user_id}`)
+            }
             className="pb-4 text-center"
           >
             <div className="rounded-full p-2 cursor-pointer">
@@ -59,4 +135,11 @@ export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
       </div>
     </>
   );
+}
+function getAllLikesByPost() {
+  throw new Error("Function not implemented.");
+}
+
+function getAllCommentsByPost() {
+  throw new Error("Function not implemented.");
 }

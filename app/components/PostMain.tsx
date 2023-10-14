@@ -5,6 +5,7 @@ import { PostMainCompTypes } from "../types";
 import Link from "next/link";
 import { ImMusic } from "react-icons/im";
 import PostMainLikes from "./PostMainLike";
+import useCreateBucketUrl from "../hooks/useCreateBucketUrl";
 
 export default function PostMain({ post }: PostMainCompTypes) {
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function PostMain({ post }: PostMainCompTypes) {
           <img
             className="rounded-full max-h-[60px"
             width="60"
-            src={post?.profile.image}
+            src={useCreateBucketUrl(post?.profile.image)}
           />
         </div>
         <div className="pl-3 w-full px-4">
@@ -63,7 +64,7 @@ export default function PostMain({ post }: PostMainCompTypes) {
                 controls
                 muted
                 className="rounded-xl object-cover mx-auto h-full"
-                src={post?.media}
+                src={useCreateBucketUrl(post?.media)}
               />
               <img
                 className="absolute right-2 bottom-10"
