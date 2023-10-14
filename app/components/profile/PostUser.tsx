@@ -22,7 +22,7 @@ export default function PostUser({ post }: PostUserCompTypes) {
   return (
     <>
       <div className="relative brightness-90 hover:brightness-[1.1] cursor-pointer">
-        {!post.video_url ? (
+        {!post.media ? (
           <div className="absolute flex items-center justify-center top-0 left-0 aspect-[3/4] w-full object-cover rounded-md bg-black">
             <AiOutlineLoading3Quarters
               className="animate-spin ml-1"
@@ -37,7 +37,7 @@ export default function PostUser({ post }: PostUserCompTypes) {
               muted
               loop
               className="aspect-[3/4] object-cover rounded-md"
-              src={post.video_url}
+              src={post.media}
             />
           </Link>
         )}

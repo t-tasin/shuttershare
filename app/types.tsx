@@ -40,7 +40,7 @@ export interface Like {
 export interface Post {
   id: string;
   user_id: string;
-  video_url: string;
+  media: string;
   text: string;
   created_at: string;
 }

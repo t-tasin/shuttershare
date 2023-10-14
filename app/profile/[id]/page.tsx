@@ -96,7 +96,7 @@ export default function Profile({ params }: ProfilePageTypes) {
                 post={{
                   id: "123",
                   user_id: "123",
-                  video_url: "/test.mp4",
+                  media: "/test.mp4",
                   text: "this is a dummy post",
                   created_at: "dummy date",
                 }}
