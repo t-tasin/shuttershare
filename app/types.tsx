@@ -51,6 +51,19 @@ export interface PostWithProfile {
   };
 }
 
+export interface CommentWithProfile {
+  id: string;
+  user_id: string;
+  post_id: string;
+  text: string;
+  created_at: string;
+  profile: {
+    user_id: string;
+    name: string;
+    image: string;
+  };
+}
+
 export interface UploadError {
   type: string;
   message: string;
@@ -60,6 +73,20 @@ export interface UploadError {
 ////////////////////////////////////////////////
 
 // COMPONENT TYPES
+
+export interface CommentsHeaderCompTypes {
+  params: { userId: string; postId: string };
+  post: PostWithProfile;
+}
+
+export interface CommentsCompTypes {
+  params: { userId: string; postId: string };
+}
+
+export interface SingleCommentCompTypes {
+  params: { userId: string; postId: string };
+  comment: CommentWithProfile;
+}
 
 export interface PostMainCompTypes {
   post: PostWithProfile;

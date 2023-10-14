@@ -1,6 +1,8 @@
 "use client";
 
 import ClientOnly from "@/app/components/ClientOnly";
+import Comments from "@/app/components/post/Comments";
+import CommentsHeader from "@/app/components/post/CommentsHeader";
 import { PostPageTypes } from "@/app/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
