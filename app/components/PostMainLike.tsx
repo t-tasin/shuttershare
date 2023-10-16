@@ -143,3 +143,5 @@ function getAllLikesByPost() {
 function getAllCommentsByPost() {
   throw new Error("Function not implemented.");
 }
+
+//write a code to print hello world
