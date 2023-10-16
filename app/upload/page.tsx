@@ -7,7 +7,6 @@ import UploadLayout from "../layouts/UploadLayout";
 import { ImCloudUpload } from "react-icons/im";
 import { BiLoaderCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import { PiKnifeLight } from "react-icons/pi";
 import { MdContentCut } from "react-icons/md";
 import { useUser } from "../context/user";
 import useCreatePost from "../hooks/useCreatePost";
