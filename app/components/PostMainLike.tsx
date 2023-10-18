@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Comments, Like, PostMainLikesCompTypes } from "../types";
 import { BiSolidUpvote, BiUpvote, BiLoaderCircle } from "react-icons/bi";
 import { useRouter } from "next/navigation";
-import { AiOutlineComment } from "react-icons/ai";
-import { PiShareFatFill } from "react-icons/pi";
+import { FaComment } from "react-icons/fa";
+import { RiSendPlaneFill } from "react-icons/ri";
 import { useGeneralStore } from "../stores/general";
 import { useUser } from "../context/user";
 import useGetCommentsByPostId from "../hooks/useGetCommentsByPostId";
@@ -119,7 +119,7 @@ export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
             className="pb-4 text-center"
           >
             <div className="rounded-full p-2 cursor-pointer">
-              <AiOutlineComment size="24" />
+              <FaComment size="24" />
             </div>
             <span className="text-xs text-gray-800 font-semibold">
               {comments?.length}
@@ -127,9 +127,9 @@ export default function PostMainLikes({ post }: PostMainLikesCompTypes) {
           </button>
           <button className="text-center">
             <div className="rounded-full p-2 cursor-pointer">
-              <PiShareFatFill size="24" />
+              <RiSendPlaneFill size="24" />
             </div>
-            <span className="text-xs text-gray-800 font-semibold">55 </span>
+            <span className="text-xs text-gray-800 font-semibold">0 </span>
           </button>
         </div>
       </div>
