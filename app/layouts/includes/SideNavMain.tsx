@@ -56,10 +56,10 @@ export default function SideNavMain() {
               ))}
             </div>
           </ClientOnly>
-          <button className="lg:block hidden text-[#3D5A80] pt-1.5 pl-2 text-[13px]">
+          {/* <button className="lg:block hidden text-[#3D5A80] pt-1.5 pl-2 text-[13px]">
             See all
-          </button>
-          {contextUser?.user?.id ? (
+          </button> */}
+          {/* {contextUser?.user?.id ? (
             <div>
               <div className="boder-b lg:ml-2 mt-2" />
               <h3 className="lg:block hidden text-xs text-gray-600 font-semibold pt-2 pb-2 px-2">
@@ -77,7 +77,7 @@ export default function SideNavMain() {
                 See more
               </button>
             </div>
-          ) : null}
+          ) : null} */}
           <div className="lg:block hidden border-b lg:ml-2 mt-2" />
           <div className="lg:block hidden text-[11px] text-gray-500">
             <p className="pt-4 px-2">© 2023 ShutterShare</p>

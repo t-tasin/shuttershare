@@ -42,19 +42,19 @@ export default function PostMain({ post }: PostMainCompTypes) {
                 {post.profile.name}
               </span>
             </Link>
-            <button className="border text-[15px] px-[21px] py-0.5 border-[#98c1d9] text-[#98c1d9] hover:bg-[#3d5a80] font-semibold rounded-md hover:text-white">
+            {/* <button className="border text-[15px] px-[21px] py-0.5 border-[#98c1d9] text-[#98c1d9] hover:bg-[#3d5a80] font-semibold rounded-md hover:text-white">
               Follow
-            </button>
+            </button> */}
           </div>
           <p className="text-[15px] pb-0.5 break-words md:max-w-[300px]">
             {post.text}
           </p>
-          <p className="text-[14px] text-gray-500 pb-0.5">
+          {/* <p className="text-[14px] text-gray-500 pb-0.5">
             #traveling #mountain #worldTour
-          </p>
+          </p> */}
           <p className="text-[14px] pb-0.5 flex items-center font-semibold">
             <ImMusic size="17" />
-            <span className="px-1">original sound - Awesome</span>
+            <span className="px-1">original sound</span>
           </p>
           <div className="mt-2.5 flex">
             <div className="relative min-h-[480px] max-w-[260px] flex items-center bg-black rounded-xl cursor-pointer">

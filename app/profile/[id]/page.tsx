@@ -76,7 +76,7 @@ export default function Profile({ params }: ProfilePageTypes) {
             </div>
           </div>
 
-          <div className="flex items-center pt-4">
+          {/* <div className="flex items-center pt-4">
             <div className="mr-4">
               <span className="font-bold">10k</span>
               <span className="text-gray-500 font-light text-[15px] pl-1.5">
@@ -89,7 +89,7 @@ export default function Profile({ params }: ProfilePageTypes) {
                 Followers
               </span>
             </div>
-          </div>
+          </div> */}
           <ClientOnly>
             <p className="pt-4 mr-4 text-gray-500 font-light text-[15px] pl-1.5 max-w-[500px] ">
               {currentProfile?.bio}
